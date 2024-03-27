@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -67,8 +69,8 @@
 		}
 
 		img {
-			width: 140px;
-			height: 150px;
+			width: 626px;
+			height: 352px;
 		}
 
 		#date {
@@ -81,7 +83,7 @@
 
 	<div class="container asset-container">
 		<div class="asset-header">
-			<img src="https://i.ibb.co/7QJjfxV/images-1.jpg" alt="">
+			<img src="{% static 'pink-piggy-bank-stacks-money-coins-isolated-white-background_256339-2137.avif' %}" alt="pink-piggy-bank">
 			<div class="asset-title">
 				<h4>Asset Summary for {{username}}</h4>
 			</div>

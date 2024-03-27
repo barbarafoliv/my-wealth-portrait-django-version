@@ -2,70 +2,64 @@
 {% block start %}
 
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-<style>
-.text {
-	color: green;
-	font-weight: bold;
-	font-family: 'Times New Roman', Times, serif;
-}
-.ok {
-	color: white;
-	text-decoration: none;
-}
-.ok:hover {
-	color: white;
-	text-decoration: none;
-}
-</style>
+<link rel="stylesheet" href="assets.css">
 
-<div class="container mt-5 col-6">
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+            <div class="card shadow-lg p-4">
+                <h4 class="text-center mb-4">Manage Your Assets</h4>
+                <hr>
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="inputName">Name</label>
+                        <input type="text" name="name" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputAmount">Amount</label>
+                        <input name="amount" type="number" class="form-control" required>
+                    </div>
+                    <button type="submit" class="btn btn-success btn-block">Add Asset</button>
+                </form>
+            </div>
+        </div>
+    </div>
 
-	<form class="col-6 mx-auto card p-3 shadow-lg" method="post" enctype="multipart/form-data">
-		{% csrf_token %}
-		<br>
-		<h4 style="font-family: 'Times New Roman', Times, serif;">Enter Your Assets</h4>
-		<hr>
-	
-		<div class="form-group">
-		<label for="exampleInputEmail1">Name</label>
-		<input type="text" name="name" class="form-control" required>
-		</div>
-		<div class="form-group">
-		<label for="exampleInputEmail1">Amount</label>
-		<input name="amount" type="number" class="form-control" required>
-		</div>
-		<button type="submit" class="btn btn-success">Add Data</button>
-	</form>
+    <div class="row mt-5">
+        <div class="col-md-6 mx-auto">
+            <div class="text-center">
+                <form action="">
+                    <a href="{% url 'report' %}" class="btn btn-primary mr-2">View Total Assets</a>
+                    <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
+                </form>
+            </div>
+            
+            <table class="table mt-4">
+                <thead>
+                    <tr>
+                        <th scope="col">No.</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Amount</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for asset in assets %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ asset.name }}</td>
+                        <td>€ {{ asset.amount }}</td>
+                        <td>
+                            <a href="/delete_asset/{{ asset.id }}" class="btn btn-danger btn-sm mr-2">Delete</a>
+                            <a href="/update_asset/{{ asset.id }}" class="btn btn-success btn-sm">Update</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 
-	<div class="class mt-5">
-		<form action="">
-		<button class="btn btn-primary"> <a class="ok" href="{% url 'report' %}">Total Assets</a></button>
-		<button class="btn btn-danger"> <a class="ok" href="{% url 'logout' %}">Logout</a></button>
-		</form>
-
-		<table class="table mt-6">
-			<thead>
-				<tr>
-					<th scope="col">No.</th>
-					<th scope="col">Name</th>
-					<th scope="col">Amount</th>
-					<th scope="col">Actions</th>
-				</tr>
-			</thead>
-			<tbody>
-				{% for asset in assets %}
-				<tr>
-					<th scope="row">{{forloop.counter}}</th>
-					<td>{{asset.name}}</td>
-					<td> € {{asset.amount}}</td>
-
-					<td>
-						<a href="/delete_asset/{{asset.id}}" class="btn btn-danger m-2">Delete</a>
-						<a href="/update_asset/{{asset.id}}" class="btn btn-success">Update</a>
-					</td>
-				</tr>
-				{% endfor %}
-			</tbody>
-		</table>
-	</div>
 {% endblock %}
