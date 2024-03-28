@@ -1,14 +1,15 @@
 {% extends "base.html" %}
+{% load static %}
 {% block start %}
 
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" href="update_asset.css"> <!-- Linking the CSS file -->
+<link rel="stylesheet" href={% static 'update_asset.css' %}>
 
 <div class="container mt-5 col-5">
     <form class="col-6 mx-auto card p-3 shadow-lg" method="post" enctype="multipart/form-data">
         {% csrf_token %}
 
-        <h4>Update Asset</h4>
+        <h4 class="text-center">Update Asset</h4>
         <hr>
         <div class="form-group">
             <label for="inputName">Name</label>
